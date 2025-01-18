@@ -1,0 +1,41 @@
+package org.zahin.DrivingSpotter.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.zahin.DrivingSpotter.model.common.BaseAuditEntity;
+
+import java.sql.Types;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "report")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Report extends BaseAuditEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "violation_description", length = 500, nullable = false)
+    private String violationDescription;
+
+    @Column(name = "location", length = 500, nullable = false)
+    private String location;
+
+    @Column(name = "datetime", nullable = false)
+    private String datetime;
+
+    @Column(name = "license_plate", length = 7, nullable = false)
+    private String licensePlate;
+
+//    @Lob
+//    @JdbcTypeCode(Types.VARBINARY)
+//    @Column(name = "evidence_img", nullable = false)
+//    private byte[] evidenceImg;
+}

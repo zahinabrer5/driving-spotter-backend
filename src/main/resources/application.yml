@@ -1,0 +1,19 @@
+server:
+  address: localhost
+  port: 8080
+spring:
+  application:
+    name: DrivingSpotter
+  datasource:
+    url: jdbc:mysql://localhost:3306/driving_spotter
+    username: root
+    password: orangepencil47
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
