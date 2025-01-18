@@ -5,11 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.zahin.DrivingSpotter.model.common.BaseAuditEntity;
-
-import java.sql.Types;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "report")
@@ -34,8 +30,7 @@ public class Report extends BaseAuditEntity {
     @Column(name = "license_plate", length = 7, nullable = false)
     private String licensePlate;
 
-//    @Lob
-//    @JdbcTypeCode(Types.VARBINARY)
-//    @Column(name = "evidence_img", nullable = false)
-//    private byte[] evidenceImg;
+    @Lob
+    @Column(name = "evidence_img", nullable = false)
+    private String evidenceImg;
 }
