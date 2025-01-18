@@ -1,0 +1,13 @@
+package org.zahin.DrivingSpotter;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DrivingSpotterApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DrivingSpotterApplication.class, args);
+	}
+
+}
