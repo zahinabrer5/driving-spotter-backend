@@ -18,6 +18,10 @@ public class Report extends BaseAuditEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name = "violation_description", length = 500, nullable = false)
     private String violationDescription;
 
@@ -33,4 +37,11 @@ public class Report extends BaseAuditEntity {
     @Lob
     @Column(name = "evidence_img", nullable = false)
     private String evidenceImg;
+
+    @Lob
+    @Column(name = "license_plate_img")
+    private String licensePlateImg;
+
+    @Column(name = "license_plate_text", nullable = false)
+    private String licensePlateText;
 }

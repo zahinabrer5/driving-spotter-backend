@@ -21,19 +21,25 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
 
     @Override
-    public Report create(Report report) {
-        /* TODO:
-        *   1. Error logging
-        *   2. Exception handling (exception advisor)
-        *   3. Figure out how to use DTO
-        *   4. Research @MappedSuperclass, @Builder */
-        log.info("Creating new report with license plate: {}", report.getLicensePlate());
+    public Report create(Report report) throws Exception {
+        log.info("Creating new report for user with email: {}", report.getUser().getEmail());
+
+        String plateImg = report.getLicensePlateImg();
+        if (plateImg == null || plateImg.isBlank())
+            return reportRepository.save(report);
+
+        String plateText = LicensePlateHelper.getPlateText(plateImg);
+        if (LicensePlateHelper.isValidPlate(plateText))
+            report.setLicensePlateText(plateText);
+        else
+            return null;
+
         return reportRepository.save(report);
     }
 
     @Override
     public Report getById(Long id) {
-        log.info("Fetching user by id: {}", id);
+        log.info("Fetching report by id: {}", id);
         return reportRepository.findById(id).get();
     }
 
@@ -43,14 +49,25 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report update(Report user) {
-        log.info("Updating user with id: {}", user.getId());
-        return reportRepository.save(user);
+    public Report update(Report report) throws Exception {
+        log.info("Updating report with id: {}", report.getId());
+
+        String plateImg = report.getLicensePlateImg();
+        if (plateImg == null || plateImg.isBlank())
+            return reportRepository.save(report);
+
+        String plateText = LicensePlateHelper.getPlateText(plateImg);
+        if (LicensePlateHelper.isValidPlate(plateText))
+            report.setLicensePlateText(plateText);
+        else
+            return null;
+
+        return reportRepository.save(report);
     }
 
     @Override
     public Boolean deleteById(Long id) {
-        log.warn("Deleting user by id: {}", id);
+        log.warn("Deleting report by id: {}", id);
         reportRepository.deleteById(id);
         return TRUE;
     }

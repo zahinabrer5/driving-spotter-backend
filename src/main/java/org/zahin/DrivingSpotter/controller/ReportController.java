@@ -11,8 +11,7 @@ import org.zahin.DrivingSpotter.service.ReportService;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/v1/report")
@@ -47,8 +46,20 @@ public class ReportController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response> create(@RequestBody @Valid Report report) {
-        reportService.create(report);
+    public ResponseEntity<Response> create(@RequestBody @Valid Report report) throws Exception {
+        Report result = reportService.create(report);
+
+        if (result == null) {
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timestamp(LocalDateTime.now())
+                            .status(BAD_REQUEST)
+                            .statusCode(BAD_REQUEST.value())
+                            .message("Bad Request (license plate OCR likely failed)")
+                            .build()
+            );
+        }
+
         return ResponseEntity.ok(
                 Response.builder()
                         .timestamp(LocalDateTime.now())
@@ -60,8 +71,20 @@ public class ReportController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Response> update(@RequestBody @Valid Report report) {
-        reportService.update(report);
+    public ResponseEntity<Response> update(@RequestBody @Valid Report report) throws Exception {
+        Report result = reportService.update(report);
+
+        if (result == null) {
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timestamp(LocalDateTime.now())
+                            .status(BAD_REQUEST)
+                            .statusCode(BAD_REQUEST.value())
+                            .message("Bad Request (license plate OCR likely failed)")
+                            .build()
+            );
+        }
+
         return ResponseEntity.ok(
                 Response.builder()
                         .timestamp(LocalDateTime.now())
