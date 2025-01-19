@@ -22,7 +22,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report create(Report report) throws Exception {
-        log.info("Creating new report for user with email: {}", report.getUser().getEmail());
+//        log.info("Creating new report for user with email: {}", report.getUser().getEmail());
 
         String plateImg = report.getLicensePlateImg();
         if (plateImg == null || plateImg.isBlank())

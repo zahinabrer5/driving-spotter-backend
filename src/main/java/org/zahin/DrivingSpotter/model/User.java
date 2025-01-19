@@ -1,5 +1,6 @@
 package org.zahin.DrivingSpotter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class User extends BaseAuditEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user")
     private List<Report> reports = new ArrayList<>();
 }
